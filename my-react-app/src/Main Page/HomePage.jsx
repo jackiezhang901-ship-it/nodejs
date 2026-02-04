@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function LoginPage() {
+function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -44,8 +44,27 @@ function LoginPage() {
           </nav>
       </header>
 
-       {/* ==== Login Form ===*/}
-
+      <main className="about section">
+        <div className="about-container">
+            <div className="row">
+                <div className="about-content padd-15">
+                    <div className="row">
+                        <div className="about-text padd-15">    
+                            <h2>Welcome to Management System</h2>
+                            <p>
+                              Manage your bookings, shop from the school inventory, and 
+                              stay connected—all in one place. Whether you're a student, 
+                              teacher, or admin, everything you need is just a click away.
+                            </p>
+                            <div className="center">
+                                <a href="#" target="" class="btn btn-default">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </main>
 
         <footer>
             <p>School Management System &nbsp;&nbsp;|&nbsp;&nbsp; © Copyright: Foolish Developer &nbsp;&nbsp;|&nbsp;&nbsp; SchoolManagement@gmail.com</p>
@@ -55,4 +74,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default HomePage;
