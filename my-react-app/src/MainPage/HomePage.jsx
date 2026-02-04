@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -24,7 +25,7 @@ function HomePage() {
                 <li className="nav-item"><a href="/" className="nav-link">Blog</a></li>
                 <li className="nav-item"><a href="/" className="nav-link">About & Contact Us</a></li>
                 <li className="nav-item"><a href="/" className="nav-link">Location</a></li>
-                <li className="nav-item"><a href="/Login" className="nav-link">Login</a></li>               
+                <li className="nav-item"> <Link to="/Login" className="nav-link">Login</Link></li>               
               </ul> 
 
               {/* ==== NAV CLOSE ===*/}
