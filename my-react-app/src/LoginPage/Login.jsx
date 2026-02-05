@@ -5,8 +5,6 @@ import { faBars, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-
 
 function LoginPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleMenu = () => {
@@ -15,12 +13,6 @@ function LoginPage() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const login = (e) => {
-    if (e && e.preventDefault) e.preventDefault();
-    // TODO: replace with real auth
-    console.log('login', { email, password });
   };
 
   return (
@@ -62,16 +54,16 @@ function LoginPage() {
                 <div className='form'>
                     <h2>Login</h2>
                     <div className='box'>
-                        <input type='email' placeholder='Enter your email' onChange={(e) => setEmail(e.target.value)} />
+                        <input type='email' placeholder='Enter your email'/>
                     </div>
                     <div className='box'>
-                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password'/>
                         <span className='toggle-password' onClick={togglePasswordVisibility}>
                           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                         </span>
                     </div>
-                    <button onClick={login}>Sign In Your Account</button>
-                    <p>Don't Have An Account? <Link to='/Register' style={{ color: '#ffcc00', fontSize: '18px' }}>Register Account</Link></p>
+                    <button>Sign In Your Account</button>
+                    <p>Don't Have An Account? <Link to='/Register' style={{ color: 'blue', fontSize: '14px' }}>Register Account</Link></p>
                     
                 </div>
             </div>
