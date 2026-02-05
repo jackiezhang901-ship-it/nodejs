@@ -1,18 +1,61 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, userContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function LoginPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
+  // Navigation Menu Toggle
+  const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  // Password Visibility Toggle
+  const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigation = useNavigate();
+  const { setUser } = useState(userContext);
+
+  const navigateToUserTypePage = (userType) => {
+    switch (userType) {
+      case 'Administrator':
+        navigation('/Administrator');  
+        break;
+      case 'User':
+        navigation('/UserPage');
+        break;
+      default:
+        navigation('/Login');
+    }
+  };
+
+  // Login Functions
+  const Login = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {  
+        setUser(data.user);
+        navigateToUserTypePage(data.user.role);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
 
   return (
@@ -53,15 +96,15 @@ function LoginPage() {
                 <div className='form'>
                     <h2>Login</h2>
                     <div className='box'>
-                        <input type='email' placeholder='Enter your email'/>
+                        <input type='email' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className='box'>
-                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password'/>
+                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                         <span className='toggle-password' onClick={togglePasswordVisibility}>
                           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                         </span>
                     </div>
-                    <button>Sign In Your Account</button>
+                    <button onClick={Login}>Sign In Your Account</button>
                     <p>Don't Have An Account? <Link to='/Register' style={{ color: 'blue', fontSize: '14px' }}>Register Account</Link></p>
                     
                 </div>

@@ -1,14 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function UserPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
 
+  // Navigation Menu Toggle
+  const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const navigation = useState();
+  const {user, setUser} = useState(user);
+  const handleLogin = () => {
+    setUser(null);
+    navigation('/Login');
+  }
+
+  useEffect(() => {
+    if(!user){
+      navigation('/Login', {replace: true} );
+    }
+  }, [user, navigation]);
+  
 
   return (
     <div>
