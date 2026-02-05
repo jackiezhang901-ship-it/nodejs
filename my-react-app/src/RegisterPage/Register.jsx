@@ -144,7 +144,7 @@ function RegisterPage() {
     setContactNumber(val);
     if (val.trim() === '') {
       setContactNumberError('Contact number is required');
-    } else if (!/^[0-9]+$/.test(val)) {
+    } else if (!contactNumberPattern.test(val)) {
       setContactNumberError('Contact number must contain only digits');
     } else if (val.length < 10) {
       setContactNumberError('Contact number must be at least 10 digits');
