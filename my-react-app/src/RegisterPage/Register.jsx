@@ -153,6 +153,50 @@ function RegisterPage() {
     }
   };
 
+  // Validation Function
+  const validate = () => {
+    return !userNameError && !emailError && !passwordError && !confirmPasswordError && !dateOfBirthError && !genderError && !contactNumberError &&
+           userName && email && password && confirmPassword && dateOfBirth && gender && contactNumber;
+  };
+
+  // Register Function
+  const Register = async () => {
+    if (!validate()) {
+      alert('Please fix all errors before registering');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName,
+          email,
+          password,
+          dateOfBirth,
+          gender,
+          contactNumber,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        alert('Registration successful! Please login.');
+        // Redirect to login page
+        window.location.href = '/Login';
+      } else {
+        alert('Registration failed: ' + (data.message || 'Unknown error'));
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+      console.error('Registration error:', error);
+    }
+  };
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -235,7 +279,7 @@ function RegisterPage() {
             {contactNumberError && <p className='error'>{contactNumberError}</p>}
           </div>
 
-          <button>Sign In Your Account</button>
+          <button onClick={Register}>Sign In Your Account</button>
         </div>
       </div>
 
