@@ -17,8 +17,41 @@ function LoginPage() {
     setShowPassword(!showPassword);
   };
 
+  // Email Validation State
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const handleEmailChange = (e) => {
+    const val = e.target.value;
+    setEmail(val);
+    if (val.trim() === '') {
+      setEmailError('Email is required');
+    } else if (!val.includes('@')) {
+      setEmailError('Email must include @');
+    } else if (!emailPattern.test(val)) {
+      setEmailError('Invalid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  // Password Validation State
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const handlePasswordChange = (e) => {
+    const val = e.target.value;
+    setPassword(val);
+    if (val.trim() === '') {
+      setPasswordError('Password is required');
+    } else if (val.length < 8 || !passwordPattern.test(val)) {
+      setPasswordError('Must be at least 8 characters long and contain uppercase, lowercase, number, and special character');
+    } else {
+      setPasswordError('');
+    }
+  };  
+
+  // Navigation based on User Role
   const navigation = useNavigate();
   const { setUser } = useState(userContext);
 
@@ -96,17 +129,18 @@ function LoginPage() {
                 <div className='form'>
                     <h2>Login</h2>
                     <div className='box'>
-                        <input type='email' placeholder='Enter your email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type='email' placeholder='Enter your email' value={email} onChange={handleEmailChange} />
+                        {emailError && <p className="error">{emailError}</p>}
                     </div>
                     <div className='box'>
-                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password' value={password} onChange={handlePasswordChange} />
                         <span className='toggle-password' onClick={togglePasswordVisibility}>
                           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                         </span>
                     </div>
+                    {passwordError && <p className="error">{passwordError}</p>}
                     <button onClick={Login}>Sign In Your Account</button>
                     <p>Don't Have An Account? <Link to='/Register' style={{ color: 'blue', fontSize: '14px' }}>Register Account</Link></p>
-                    
                 </div>
             </div>
        </section>
@@ -115,7 +149,6 @@ function LoginPage() {
             <p>School Management System &nbsp;&nbsp;|&nbsp;&nbsp; © Copyright: Foolish Developer &nbsp;&nbsp;|&nbsp;&nbsp; SchoolManagement@gmail.com</p>
         </footer>
     </div>
-    
   );
 }
 
