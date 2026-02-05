@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function HomePage() {
+function UserPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -21,11 +21,11 @@ function HomePage() {
             <div className="nav-menu" id="nav-menu">
               {/* ==== NAV LIST ===*/}
               <ul className="nav-list">
-                <li className="nav-item"><a href="/" className="nav-link">Features</a></li>
-                <li className="nav-item"><a href="/" className="nav-link">Blog</a></li>
-                <li className="nav-item"><a href="/" className="nav-link">About & Contact Us</a></li>
-                <li className="nav-item"><Link to="/" className="nav-link">Location</Link></li>
-                <li className="nav-item"><Link to="/Login" className="nav-link">Login</Link></li>               
+                <li className="nav-item"><a href="/" className="nav-link">Payment</a></li>
+                <li className="nav-item"><a href="/" className="nav-link">Setting</a></li>
+                <li className="nav-item"><a href="/" className="nav-link">Profile</a></li>
+                <li className="nav-item"><a href="/" className="nav-link">Account</a></li>
+                <li className="nav-item"> <Link to="/Login" className="nav-link">Logout</Link></li>               
               </ul> 
 
               {/* ==== NAV CLOSE ===*/}
@@ -73,4 +73,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default UserPage;
