@@ -40,8 +40,7 @@ function LoginPage() {
 
             {/* ==== NAV BUTTON ===*/}
             <div className="nav-btn">
-              {/* ==== TOGGLE BUTTON ===*/}
-              <div className="nav-toggle" id="nav-toggle">
+              <div className="nav-toggle" id="nav-toggle" onClick={toggleMenu}>
                 <FontAwesomeIcon icon={faBars} />
               </div>
             </div>

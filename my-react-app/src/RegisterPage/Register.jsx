@@ -80,10 +80,78 @@ function RegisterPage() {
   };
 
   // Date of Birth Validation
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirthError, setDateOfBirthError] = useState('');
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  const currentDate = yyyy + '-' + mm + '-' + dd;
+
+  const handleDateOfBirthChange = (e) => {
+    const val = e.target.value;
+    setDateOfBirth(val);
+    
+    if (val.trim() === '') {
+      setDateOfBirthError('Date of birth is required');
+    } else {
+      const selectedDate = new Date(val);
+      const todayDate = new Date();
+      
+      // Calculate age
+      let age = todayDate.getFullYear() - selectedDate.getFullYear();
+      const monthDiff = todayDate.getMonth() - selectedDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && todayDate.getDate() < selectedDate.getDate())) {
+        age--;
+      }
+      
+      // Validate: must be at least 18 years old
+      if (age < 18) {
+        setDateOfBirthError('You must be at least 18 years old');
+      }
+      // Validate: cannot be a future date
+      else if (selectedDate > todayDate) {
+        setDateOfBirthError('Date of birth cannot be in the future');
+      }
+      // Validate: reasonable age limit (not more than 120 years old)
+      else if (age > 120) {
+        setDateOfBirthError('Please enter a valid date of birth');
+      } else {
+        setDateOfBirthError('');
+      }
+    }
+  };
 
   // Gender Validation
+  const [gender, setGender] = useState('');
+  const [genderError, setGenderError] = useState('');
+  const handleGenderChange = (e) => {
+    const val = e.target.value;
+    setGender(val);
+    if (val.trim() === '') {
+      setGenderError('Gender is required');
+    } else {
+      setGenderError('');
+    }
+  };
 
   // Contact Number Validation
+  const [contactNumber, setContactNumber] = useState('');
+  const [contactNumberError, setContactNumberError] = useState('');
+  const contactNumberPattern = /^[0-9]{10,}$/;
+  const handleContactNumberChange = (e) => {
+    const val = e.target.value;
+    setContactNumber(val);
+    if (val.trim() === '') {
+      setContactNumberError('Contact number is required');
+    } else if (!/^[0-9]+$/.test(val)) {
+      setContactNumberError('Contact number must contain only digits');
+    } else if (val.length < 10) {
+      setContactNumberError('Contact number must be at least 10 digits');
+    } else {
+      setContactNumberError('');
+    }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -147,21 +215,24 @@ function RegisterPage() {
 
           <div className='box'>
             <p>Date of Birth</p>
-            <input type='date' />
+            <input type='date' value={dateOfBirth} onChange={handleDateOfBirthChange} max={currentDate} />
+            {dateOfBirthError && <p className='error'>{dateOfBirthError}</p>}
           </div>
 
           <div className='box'>
             <p>Gender</p>
-            <select>
+            <select value={gender} onChange={handleGenderChange}>
               <option value=''>Select your Gender</option>
               <option value='Male'>Male</option>
               <option value='Female'>Female</option>
             </select>
+            {genderError && <p className='error'>{genderError}</p>}
           </div>
 
           <div className='box'>
             <p>Contact Number</p>
-            <input type='tel' placeholder='Add your Contact Number' />
+            <input type='tel' placeholder='Add your Contact Number' value={contactNumber} onChange={handleContactNumberChange} />
+            {contactNumberError && <p className='error'>{contactNumberError}</p>}
           </div>
 
           <button>Sign In Your Account</button>
