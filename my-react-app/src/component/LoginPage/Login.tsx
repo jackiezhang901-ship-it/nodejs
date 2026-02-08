@@ -4,22 +4,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function LoginPage() {
+
+  // Navigation Menu Toggle
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  // Toggle Password Visibility
   const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   
   const [form, setForm] = useState({
      username: '',
      password: ''
   });
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-  
-    // Handle form submission logic here
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+
 
   return (
     <div>
