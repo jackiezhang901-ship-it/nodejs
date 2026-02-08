@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./MainPage/HomePage.jsx";
-import LoginPage from "./LoginPage/Login.jsx"; 
-import RegisterPage from "./RegisterPage/Register.jsx"
-import UsersPage from "./UsersPage/User.jsx";
+import HomePage from "./component/MainPage/HomePage.tsx";
+import LoginPage from "./component/LoginPage/Login.tsx"; 
+import RegisterPage from "./component/RegisterPage/Register.tsx"
+import UsersPage from "./component/UsersPage/User.tsx"; 
 
 function App() {
   return (

@@ -56,7 +56,7 @@ function UserPage() {
                               teacher, or admin, everything you need is just a click away.
                             </p>
                             <div className="center">
-                                <a href="#" target="" class="btn btn-default">Learn More</a>
+                                <a href="#" target="" className="btn btn-default">Learn More</a>
                             </div>
                         </div>
                     </div>

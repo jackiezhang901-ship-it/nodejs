@@ -1,16 +1,39 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, FormEvent } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import  loginService from '../../service/login.ts';  
+import { LoginData } from '../../service/login.ts';
 function LoginPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({
+     username: '',
+     password: ''
+  });
+  const navigation = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const response = await loginService.login({
+    username: form.username,
+    password: form.password
+  });
+
+  if (response.ok) {
+    console.log("Login successful");
+    navigation('/Users');
+  } else {
+    console.log("Login failed");
+  }
+}
+  
+    // Handle form submission logic here
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -50,21 +73,27 @@ function LoginPage() {
        {/* ==== Login Form ===*/}
        <section>
             <div className='login-container'>
-                <div className='form'>
+              <form onSubmit={ onSubmit }>
+                  <div className='form'>
                     <h2>Login</h2>
                     <div className='box'>
-                        <input type='email' placeholder='Enter your email'/>
+                       <input  name='username' type='text' value={form.username} onChange={(e) => setForm({...form, username: e.target.value})}
+                               placeholder='Enter your username'/>
                     </div>
                     <div className='box'>
-                        <input type={showPassword ? 'text' : 'password'} placeholder='Enter your Password'/>
+                        <input name='password' type={showPassword ? 'text' : 'password'} value={form.password}
+                         onChange={(e) => setForm({...form, password: e.target.value})}
+                               placeholder='Enter your Password'/>
                         <span className='toggle-password' onClick={togglePasswordVisibility}>
                           <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                         </span>
                     </div>
-                    <button>Sign In Your Account</button>
+                    <button type='submit'>Sign In Your Account</button>
                     <p>Don't Have An Account? <Link to='/Register' style={{ color: 'blue', fontSize: '14px' }}>Register Account</Link></p>
                     
                 </div>
+              </form>
+                
             </div>
        </section>
         
@@ -75,5 +104,4 @@ function LoginPage() {
     
   );
 }
-
 export default LoginPage;
