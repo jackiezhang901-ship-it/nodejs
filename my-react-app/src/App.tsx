@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./component/MainPage/HomePage.tsx";
 import LoginPage from "./component/LoginPage/Login.tsx"; 
 import RegisterPage from "./component/RegisterPage/Register.tsx"
-import UsersPage from "./component/UsersPage/User.tsx"; 
+import UsersPage from "./component/UsersPage/UserPage.jsx"; 
 
 function App() {
   return (
