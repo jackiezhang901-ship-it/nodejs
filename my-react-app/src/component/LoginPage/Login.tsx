@@ -22,8 +22,6 @@ function LoginPage() {
      password: ''
   });
 
-
-
   return (
     <div>
       <header className="header" id="header">
