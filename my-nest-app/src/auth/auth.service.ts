@@ -36,8 +36,15 @@ export class AuthService {
     }
 
     // 加密密码
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    let hashedPassword: string;
+    try {
+      hashedPassword = await bcrypt.hash(password, 10); // 使用 await
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new BadRequestException('Password hashing failed', error.message);
+      }
+      throw new BadRequestException('Password hashing failed');
+    }
     // 创建新用户
     const user = await this.userRepository.createUser({
       email,
@@ -64,6 +71,10 @@ export class AuthService {
       throw new UnauthorizedException('User account is inactive');
     }
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid username or password');
+    }
     if (password !== user.password) {
       throw new UnauthorizedException('Invalid username or password');
     }
