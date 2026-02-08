@@ -201,7 +201,7 @@ h3{
 /*========== About ==========*/
 .about.section {
   color: white; /* Text color */
-  background-image: url('/src/Image/schoolwallpaper.jpg'); /* Replace with your image path */
+  background-image: url('/my-react-app/src/component/Image/schoolwallpaper.jpg'); /* Replace with your image path */
   background-size: cover;        /* Make the image cover the container */
   background-position: center;   /* Center the image */
   background-repeat: no-repeat;  /* Prevent repeating */
