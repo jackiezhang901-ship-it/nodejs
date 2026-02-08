@@ -90,7 +90,6 @@ function LoginPage() {
                   <div className='form'>
                     <h2>Login</h2>
                     <div className='box'>
-                      <p>Email</p>
                       <input type='email' placeholder='Add your Email' value={email} onChange={handleEmailChange} />
                       {emailError && <p className='error'>{emailError}</p>}
                     </div>
