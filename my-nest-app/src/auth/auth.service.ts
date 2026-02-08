@@ -64,12 +64,9 @@ export class AuthService {
       throw new UnauthorizedException('User account is inactive');
     }
 
-    // 验证密码
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    if (password !== user.password) {
       throw new UnauthorizedException('Invalid username or password');
     }
-
     // 更新最后登录时间
     user.lastLoginAt = new Date();
     await this.userRepository.save(user);
