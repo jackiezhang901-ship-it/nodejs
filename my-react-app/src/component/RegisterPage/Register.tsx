@@ -7,7 +7,7 @@ function RegisterPage() {
 
   // Navigation Menu Toggle
   const [menuOpen, setMenuOpen] = useState(false);
-   const toggleMenu = () => {
+  const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 

@@ -10,21 +10,7 @@ function UserPage() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-
-  const navigation = useState();
-  const {user, setUser} = useState(user);
-  const handleLogin = () => {
-    setUser(null);
-    navigation('/Login');
-  }
-
-  useEffect(() => {
-    if(!user){
-      navigation('/Login', {replace: true} );
-    }
-  }, [user, navigation]);
   
-
   return (
     <div>
       <header className="header" id="header">
