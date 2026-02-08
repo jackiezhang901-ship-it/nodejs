@@ -3,7 +3,7 @@ import {
   BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { UserRepository } from '../user/user.repository';
 import { User } from '../user/entities/user.entity';
 import { RegisterDto } from './dto/register.dto';
@@ -38,7 +38,7 @@ export class AuthService {
     // 加密密码
     let hashedPassword: string;
     try {
-      hashedPassword = await bcrypt.hash(password, 10); // 使用 await
+      hashedPassword = await hash(password, 10); // 使用 await
     } catch (error) {
       if (error instanceof Error) {
         throw new BadRequestException('Password hashing failed', error.message);
@@ -71,7 +71,8 @@ export class AuthService {
       throw new UnauthorizedException('User account is inactive');
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const hashedPassword = await hash(password, 10); 
+    const isPasswordValid = await compare(hashedPassword, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid username or password');
     }
