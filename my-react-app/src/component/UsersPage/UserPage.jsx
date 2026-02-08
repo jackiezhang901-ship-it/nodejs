@@ -7,11 +7,23 @@ function UserPage() {
 
   // Navigation Menu Toggle
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigation = useState();
-  const [user, setUser] = useState( { name: '', email: '' } );
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  const navigation = useState();
+  const {user, setUser} = useState(user);
+  const handleLogin = () => {
+    setUser(null);
+    navigation('/Login');
+  }
+
+  useEffect(() => {
+    if(!user){
+      navigation('/Login', {replace: true} );
+    }
+  }, [user, navigation]);
+  
 
   return (
     <div>

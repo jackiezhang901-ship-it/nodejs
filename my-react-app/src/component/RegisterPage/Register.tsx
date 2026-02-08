@@ -4,7 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function RegisterPage() {
+
+  // Navigation Menu Toggle
   const [menuOpen, setMenuOpen] = useState(false);
+   const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   // Name Validation
   const [userName, setUserName] = useState('');
@@ -135,6 +140,19 @@ function RegisterPage() {
     }
   };
 
+  // Role Validation
+  const [role, setRole] = useState('');
+  const [roleError, setRoleError] = useState(''); 
+  const handleRoleChange = (e) => {
+    const val = e.target.value;
+    setRole(val);
+    if (val.trim() === '') {
+      setRoleError('Role is required');
+    } else {
+      setRoleError('');
+    }
+  };
+
   // Contact Number Validation
   const [contactNumber, setContactNumber] = useState('');
   const [contactNumberError, setContactNumberError] = useState('');
@@ -155,8 +173,8 @@ function RegisterPage() {
 
   // Validation Function
   const validate = () => {
-    return !userNameError && !emailError && !passwordError && !confirmPasswordError && !dateOfBirthError && !genderError && !contactNumberError &&
-           userName && email && password && confirmPassword && dateOfBirth && gender && contactNumber;
+    return !userNameError && !emailError && !passwordError && !confirmPasswordError && !dateOfBirthError && !genderError && !roleError && !contactNumberError &&
+           userName && email && password && confirmPassword && dateOfBirth && gender && role &&contactNumber;
   };
 
   // Register Function
@@ -176,8 +194,10 @@ function RegisterPage() {
           userName,
           email,
           password,
+          confirmPassword,
           dateOfBirth,
           gender,
+          role,
           contactNumber,
         }),
       });
@@ -195,10 +215,6 @@ function RegisterPage() {
       alert('Error: ' + error.message);
       console.error('Registration error:', error);
     }
-  };
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -271,6 +287,16 @@ function RegisterPage() {
               <option value='Female'>Female</option>
             </select>
             {genderError && <p className='error'>{genderError}</p>}
+          </div>
+
+          <div className='box'>
+            <p>Role</p>
+            <select value={role} onChange={handleRoleChange}>
+              <option value=''>Select your Role</option>
+              <option value='Administrator'>Administrator</option>
+              <option value='User'>User</option>
+            </select>
+            {roleError && <p className='error'>{roleError}</p>}
           </div>
 
           <div className='box'>
